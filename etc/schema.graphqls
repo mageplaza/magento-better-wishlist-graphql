@@ -1,0 +1,63 @@
+# Mageplaza
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Mageplaza.com license that is
+# available through the world-wide-web at this URL:
+# https://www.mageplaza.com/LICENSE.txt
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade this extension to newer
+# version in the future.
+#
+# @category    Mageplaza
+# @package     Mageplaza_BetterWishlistGraphQl
+# @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+# @license     https://www.mageplaza.com/LICENSE.txt
+
+type Query {
+    MpBetterWishlistGetConfig:MpBetterWishlistConfigOutput @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Config") @doc(description: "The query get data for Mageplaza Better Wishlist extension config.")
+    MpBetterWishlistGetCategories(
+        category_id: String @doc(description: "Category Id needs to be searched.")
+        is_items: Boolean @doc(description: "Does add items in category?")
+    ):[MpBetterWishlistCategory] @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Get") @doc(description: "The query searches for category that match the criteria specified in the filter.")
+}
+type Mutation {
+    MpBetterWishlistCreateCategory(
+        input: MpBetterWishlistCreateCategory @doc(description: "Information of the category.")
+    ):MpBetterWishlistCategory @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Create") @doc(description: "Create new Mageplaza Wishlist category.")
+}
+
+input MpBetterWishlistCreateCategory {
+    category_name: String! @doc(description: "Category name.")
+}
+
+type MpBetterWishlistConfigOutput {
+    general: MpBetterWishlistGeneralConfigOutput
+}
+type MpBetterWishlistGeneralConfigOutput {
+    enabled: Boolean @doc(description: "Is enabled"),
+    remove_after_add_to_cart: Boolean @doc(description: "Is remove item after add to cart"),
+    enabled_multi_wishlist: Boolean @doc(description: "Is enabled multi wishlist"),
+    show_all_item: Boolean @doc(description: "Is show all item"),
+    allow_customer_create_wishlist: Boolean @doc(description: "allow customer crate wishlist"),
+    limit_number_of_wishlist: Int @doc(description: "limit number of wishlist"),
+    font_awesome: Boolean @doc(description: "Is enabled font awesome")
+}
+
+type MpBetterWishlistCategory {
+    category_id: String @doc(description: "Category id"),
+    category_name: String @doc(description: "Category name"),
+    customer_id: Int @doc(description: "Customer id"),
+    is_default: Boolean @doc(description: "Category is default category"),
+    items: [MpBetterWishlistItem] @doc(description: "Category item list")
+}
+type MpBetterWishlistItem {
+    wishlist_item_id: Int @doc(description: "Wishlist item id"),
+    product_id: Int @doc(description: "Product id"),
+    store_id: Int @doc(description: "Store id"),
+    added_at: String @doc(description: "Added at"),
+    description: String @doc(description: "Description"),
+    qty: Int @doc(description: "Item qty")
+}
