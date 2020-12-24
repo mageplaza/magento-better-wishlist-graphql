@@ -30,10 +30,10 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category;
 
 /**
- * Class Create
+ * Class Delete
  * @package Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category
  */
-class Create extends Category
+class Delete extends Category
 {
     /**
      * @inheritdoc
@@ -41,10 +41,10 @@ class Create extends Category
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $customerId = $this->checkLogin($context);
-        $category   = $this->createCategoryInput($args);
+        $categoryId   = isset($args['input']['category_id'])?$args['input']['category_id']:'';
 
         try {
-            return $this->wishlistRepository->createCategory($category, $customerId);
+            return $this->wishlistRepository->deleteCategory($categoryId, $customerId);
         } catch (Exception $exception) {
             throw new GraphQlInputException(__($exception->getMessage()));
         }

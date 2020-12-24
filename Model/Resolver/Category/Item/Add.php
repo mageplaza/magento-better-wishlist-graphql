@@ -21,7 +21,7 @@
 
 declare(strict_types=1);
 
-namespace Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category;
+namespace Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category\Item;
 
 use Exception;
 use Magento\Framework\GraphQl\Config\Element\Field;
@@ -30,10 +30,10 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category;
 
 /**
- * Class Create
- * @package Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category
+ * Class Add
+ * @package Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category\Item
  */
-class Create extends Category
+class Add extends Category
 {
     /**
      * @inheritdoc
@@ -41,10 +41,11 @@ class Create extends Category
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $customerId = $this->checkLogin($context);
-        $category   = $this->createCategoryInput($args);
+        $productId  = (int) $this->checkItemInput($args, 'product_id');
+        $categoryId = $this->checkItemInput($args, 'category_id');
 
         try {
-            return $this->wishlistRepository->createCategory($category, $customerId);
+            return $this->wishlistRepository->addItemToCategory($productId, $categoryId, $customerId);
         } catch (Exception $exception) {
             throw new GraphQlInputException(__($exception->getMessage()));
         }

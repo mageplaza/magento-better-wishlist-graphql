@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category;
 
+use Exception;
 use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category;
 
@@ -44,6 +46,10 @@ class Get extends Category
         }
         $this->request->setParams($args);
 
-        return $this->wishlistRepository->getAllCategories($customerId);
+        try {
+            return $this->wishlistRepository->getAllCategories($customerId);
+        } catch (Exception $exception) {
+            throw new GraphQlInputException(__($exception->getMessage()));
+        }
     }
 }

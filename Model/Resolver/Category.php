@@ -108,4 +108,15 @@ abstract class Category implements ResolverInterface
 
         return $this->mpWishlistCategoryFactory->create()->setData($categoryData);
     }
+
+    /**
+     * @param array $args
+     * @param string $key
+     *
+     * @return string
+     */
+    public function checkItemInput($args, $key)
+    {
+        return isset($args['input'][$key]) ? $args['input'][$key] : '';
+    }
 }

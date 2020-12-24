@@ -25,12 +25,30 @@ type Query {
 }
 type Mutation {
     MpBetterWishlistCreateCategory(
-        input: MpBetterWishlistCreateCategory @doc(description: "Information of the category.")
+        input: MpBetterWishlistCategoryInput @doc(description: "Information of the category.")
     ):MpBetterWishlistCategory @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Create") @doc(description: "Create new Mageplaza Wishlist category.")
+    MpBetterWishlistEditCategory(
+        input: MpBetterWishlistCategoryInput @doc(description: "Information of the category.")
+    ):MpBetterWishlistCategory @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Edit") @doc(description: "Edit new Mageplaza Wishlist category.")
+    MpBetterWishlistDeleteCategory(
+        input: MpBetterWishlistCategoryInput @doc(description: "Information of the category.")
+    ):Boolean @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Delete") @doc(description: "Delete new Mageplaza Wishlist category.")
+    MpBetterWishlistAddItem(
+        input: MpBetterWishlistItemInput @doc(description: "Information product and category.")
+    ):Boolean @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Item\\Add") @doc(description: "Add Item in to Mageplaza Wishlist category.")
+    MpBetterWishlistRemoveItem(
+        input: MpBetterWishlistItemInput @doc(description: "Information product and category.")
+    ):Boolean @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Item\\Remove") @doc(description: "Remove Item from to Mageplaza Wishlist category.")
 }
 
-input MpBetterWishlistCreateCategory {
-    category_name: String! @doc(description: "Category name.")
+input MpBetterWishlistCategoryInput {
+    category_id: String @doc(description: "Category id.")
+    category_name: String @doc(description: "Category name.")
+}
+
+input MpBetterWishlistItemInput {
+    product_id: Int @doc(description: "Product id.")
+    category_id: String @doc(description: "Category id.")
 }
 
 type MpBetterWishlistConfigOutput {
