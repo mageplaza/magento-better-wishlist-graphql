@@ -25,14 +25,11 @@ namespace Mageplaza\BetterWishlistGraphQl\Model\Resolver;
 
 use Exception;
 use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
-use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
-use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\Webapi\Rest\Request;
 use Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface;
 use Mageplaza\BetterWishlist\Model\CategoryFactory as MpWishlistCategoryFactory;
-use Mageplaza\BetterWishlist\Api\ConfigRepositoryInterface;
 
 /**
  * Class Category
