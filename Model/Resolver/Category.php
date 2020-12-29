@@ -27,7 +27,6 @@ use Exception;
 use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
-use Magento\Framework\Webapi\Rest\Request;
 use Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface;
 use Mageplaza\BetterWishlist\Model\CategoryFactory as MpWishlistCategoryFactory;
 
@@ -48,11 +47,6 @@ abstract class Category implements ResolverInterface
     protected $getCustomer;
 
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
      * @var MpWishlistCategoryFactory
      */
     protected $mpWishlistCategoryFactory;
@@ -61,19 +55,16 @@ abstract class Category implements ResolverInterface
      * Config constructor.
      *
      * @param BetterWishlistRepositoryInterface $wishlistRepository
-     * @param Request $request
      * @param MpWishlistCategoryFactory $mpWishlistCategoryFactory
      * @param GetCustomer $getCustomer
      */
     public function __construct(
         BetterWishlistRepositoryInterface $wishlistRepository,
-        Request $request,
         MpWishlistCategoryFactory $mpWishlistCategoryFactory,
         GetCustomer $getCustomer
     ) {
         $this->wishlistRepository        = $wishlistRepository;
         $this->getCustomer               = $getCustomer;
-        $this->request                   = $request;
         $this->mpWishlistCategoryFactory = $mpWishlistCategoryFactory;
     }
 

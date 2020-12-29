@@ -41,13 +41,18 @@ class Get extends Category
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $customerId = $this->checkLogin($context);
+        $isItems    = 'false';
         if (isset($args['is_items'])) {
-            $args['is_items'] = $args['is_items'] === true ? 'true' : 'false';
+            $isItems = $args['is_items'] === true ? 'true' : 'false';
         }
-        $this->request->setParams($args);
 
         try {
-            return $this->wishlistRepository->getAllCategories($customerId);
+            if (isset($args['category_id'])) {
+
+                return $this->wishlistRepository->getCategoryById($customerId, $args['category_id'], $isItems);
+            }
+
+            return $this->wishlistRepository->getAllCategories($customerId, $isItems);
         } catch (Exception $exception) {
             throw new GraphQlInputException(__($exception->getMessage()));
         }
