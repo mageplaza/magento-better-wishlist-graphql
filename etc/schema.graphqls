@@ -67,7 +67,6 @@ type MpBetterWishlistGeneralConfigOutput {
 type MpBetterWishlistCategory {
     category_id: String @doc(description: "Category id"),
     category_name: String @doc(description: "Category name"),
-    customer_id: Int @doc(description: "Customer id"),
     is_default: Boolean @doc(description: "Category is default category"),
     items: [MpBetterWishlistItem] @doc(description: "Category item list")
 }
