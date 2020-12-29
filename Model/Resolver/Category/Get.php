@@ -41,10 +41,7 @@ class Get extends Category
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $customerId = $this->checkLogin($context);
-        $isItems    = 'false';
-        if (isset($args['is_items'])) {
-            $isItems = $args['is_items'] === true ? 'true' : 'false';
-        }
+        $isItems    = isset($args['is_items'])?$args['is_items']:false;
 
         try {
             if (isset($args['category_id'])) {
