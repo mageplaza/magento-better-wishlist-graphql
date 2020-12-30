@@ -29,7 +29,7 @@ type Mutation {
     ):MpBetterWishlistCategory @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Create") @doc(description: "Create new Mageplaza Wishlist category.")
     MpBetterWishlistEditCategory(
         input: MpBetterWishlistCategoryInput @doc(description: "Information of the category.")
-    ):MpBetterWishlistCategory @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Edit") @doc(description: "Edit new Mageplaza Wishlist category.")
+    ):MpBetterWishlistCategoryEdit @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Edit") @doc(description: "Edit new Mageplaza Wishlist category.")
     MpBetterWishlistDeleteCategory(
         input: MpBetterWishlistCategoryInput @doc(description: "Information of the category.")
     ):Boolean @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Delete") @doc(description: "Delete new Mageplaza Wishlist category.")
@@ -70,6 +70,13 @@ type MpBetterWishlistCategory {
     is_default: Boolean @doc(description: "Category is default category"),
     items: [MpBetterWishlistItem] @doc(description: "Category item list")
 }
+
+type MpBetterWishlistCategoryEdit {
+    category_id: String @doc(description: "Category id"),
+    category_name: String @doc(description: "Category name"),
+    is_default: Boolean @doc(description: "Category is default category")
+}
+
 type MpBetterWishlistItem {
     wishlist_item_id: Int @doc(description: "Wishlist item id"),
     product_id: Int @doc(description: "Product id"),
