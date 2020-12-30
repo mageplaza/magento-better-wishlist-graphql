@@ -1,6 +1,6 @@
-# Magento 2 Better Wishlist GraphQl/PWA
+# Magento Better Wishlist GraphQl
 
-Magento 2 Better Wishlist GraphQl is a part of Better Wishlist extension that add GraphQL features, this support for PWA Studio.
+Magento Better Wishlist GraphQl is a part of Better Wishlist extension that add GraphQL features, this support for PWA Studio.
 ## 1. How to install
 
 Run the following command in Magento 2 root folder:
@@ -12,7 +12,7 @@ php bin/magento setup:static-content:deploy
 ```
 
 **Note:**
-Magento 2 Better Wishlist GraphQL requires installing [Mageplaza Better Wishlist](https://www.mageplaza.com/magento-2-better-wishlist/) in your Magento installation.
+Magento Better Wishlist GraphQL requires installing [Mageplaza Better Wishlist](https://www.mageplaza.com/magento-2-better-wishlist/) in your Magento installation.
 
 ## 2. How to use
 
