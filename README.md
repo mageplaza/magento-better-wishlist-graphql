@@ -1,4 +1,4 @@
-# Magento Better Wishlist GraphQl
+# Magento Better Wishlist GraphQL
 
 **Magento 2 Better Wishlist GraphQL is now a part of the Mageplaza Better Wishlist extension that adds GraphQL features. This supports PWA Studio.** 
 
