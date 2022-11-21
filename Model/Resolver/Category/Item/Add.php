@@ -65,7 +65,9 @@ class Add extends Category
                 : $this->getProductById((int)$this->checkItemInput($args, 'product_id'));
             $categoryId = $this->checkItemInput($args, 'category_id');
 
-            return $this->wishlistRepository->addItemToCategory($product->getEntityId(), $categoryId, $customerId);
+            $this->wishlistRepository->addItemToCategory($product->getEntityId(), $categoryId, $customerId);
+
+            return $product->getData();
         } catch (Exception $exception) {
             throw new GraphQlInputException(__($exception->getMessage()));
         }
