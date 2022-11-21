@@ -24,9 +24,14 @@ declare(strict_types=1);
 namespace Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category\Item;
 
 use Exception;
+use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface;
+use Mageplaza\BetterWishlist\Model\CategoryFactory;
 use Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category;
 
 /**
@@ -35,19 +40,44 @@ use Mageplaza\BetterWishlistGraphQl\Model\Resolver\Category;
  */
 class Add extends Category
 {
+    public function __construct(
+        protected ProductRepositoryInterface $productRepository,
+        BetterWishlistRepositoryInterface $wishlistRepository,
+        CategoryFactory $categoryFactory,
+        GetCustomer $getCustomer
+    ) {
+        parent::__construct(
+            $wishlistRepository,
+            $categoryFactory,
+            $getCustomer
+        );
+    }
+
     /**
      * @inheritdoc
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $customerId = $this->checkLogin($context);
-        $productId  = (int) $this->checkItemInput($args, 'product_id');
-        $categoryId = $this->checkItemInput($args, 'category_id');
-
         try {
-            return $this->wishlistRepository->addItemToCategory($productId, $categoryId, $customerId);
+            $customerId = $this->checkLogin($context);
+            $product = isset($args['input']['sku'])
+                ? $this->getProductBySku($args['input']['sku'])
+                : $this->getProductById((int)$this->checkItemInput($args, 'product_id'));
+            $categoryId = $this->checkItemInput($args, 'category_id');
+
+            return $this->wishlistRepository->addItemToCategory($product->getEntityId(), $categoryId, $customerId);
         } catch (Exception $exception) {
             throw new GraphQlInputException(__($exception->getMessage()));
         }
+    }
+
+    public function getProductBySku(string $sku): ProductInterface
+    {
+        return $this->productRepository->get($sku);
+    }
+
+    public function getProductById(int $id): ProductInterface
+    {
+        return $this->productRepository->getById($id);
     }
 }
