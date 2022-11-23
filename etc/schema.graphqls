@@ -35,7 +35,7 @@ type Mutation {
     ):Boolean @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Delete") @doc(description: "Delete new Mageplaza Wishlist category.")
     MpBetterWishlistAddItem(
         input: MpBetterWishlistItemInput @doc(description: "Information product and category.")
-    ):Boolean @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Item\\Add") @doc(description: "Add Item in to Mageplaza Wishlist category.")
+    ):MpBetterWishlistOutput @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Item\\Add") @doc(description: "Add Item in to Mageplaza Wishlist category.")
     MpBetterWishlistRemoveItem(
         input: MpBetterWishlistItemInput @doc(description: "Information product and category.")
     ):Boolean @resolver(class: "Mageplaza\\BetterWishlistGraphQl\\Model\\Resolver\\Category\\Item\\Remove") @doc(description: "Remove Item from to Mageplaza Wishlist category.")
@@ -48,12 +48,14 @@ input MpBetterWishlistCategoryInput {
 
 input MpBetterWishlistItemInput {
     product_id: Int @doc(description: "Product id.")
+    sku: String @doc(description: "Product SKU.")
     category_id: String @doc(description: "Category id.")
 }
 
 type MpBetterWishlistConfigOutput {
     general: MpBetterWishlistGeneralConfigOutput
 }
+
 type MpBetterWishlistGeneralConfigOutput {
     enabled: Boolean @doc(description: "Is enabled"),
     remove_after_add_to_cart: Boolean @doc(description: "Is remove item after add to cart"),
@@ -84,4 +86,27 @@ type MpBetterWishlistItem {
     added_at: String @doc(description: "Added at"),
     description: String @doc(description: "Description"),
     qty: Int @doc(description: "Item qty")
+}
+
+type MpBetterWishlistOutput {
+    entity_id: String @doc(description: "Product Entity ID")
+    attribute_set_id: String @doc(description: "Product attribute set ID")
+    type_id: String @doc(description: "Product type ID")
+    sku: String @doc(description: "Product SKU")
+    has_options: String @doc(description: "Product has options")
+    required_options: String @doc(description: "Product required options")
+    created_at: String @doc(description: "Product created at date time")
+    updated_at: String @doc(description: "Product updatet at date time")
+    name: String @doc(description: "Product name")
+    image: String @doc(description: "Product image")
+    small_image: String @doc(description: "Product small image")
+    thumbnail: String @doc(description: "Product thumbnail")
+    options_container: String @doc(description: "Product options container")
+    url_key: String @doc(description: "Product url key")
+    url_path: String @doc(description: "Product url path")
+    status: String @doc(description: "Product status")
+    visibility: String @doc(description: "Product visibility")
+    tax_class_id: String @doc(description: "Product tax class ID")
+    price: String @doc(description: "Product price")
+    description: String @doc(description: "Product description")
 }
